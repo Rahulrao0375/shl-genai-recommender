@@ -1,5 +1,26 @@
-/data/
 
-pycache/*.pyc
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 
-.venv/venv/
+# Virtual environment
+venv/
+.venv/
+
+# Data files (generated)
+data/
+*.npy
+*.joblib
+*.csv
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
