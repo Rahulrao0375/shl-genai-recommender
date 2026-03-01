@@ -1,0 +1,184 @@
+#SHL – GenAI Assessment Recommendation System
+
+Developed by Rahul Rao
+
+#Overview
+
+This project is an intelligent Assessment Recommendation System built to recommend the most relevant SHL Individual Test Solutions based on a natural language hiring query or job description.
+
+Instead of simple keyword matching, the system uses semantic embeddings and vector similarity search to understand the intent and context of the query before generating recommendations.
+
+#Problem Statement
+
+Recruiters and hiring managers often rely on keyword searches to find suitable assessments. This process can be inefficient and may not capture the true intent of the hiring requirement.
+
+This system improves the process by:
+
+Understanding the hiring query semantically
+
+Retrieving relevant SHL assessments based on contextual similarity
+
+Ensuring balanced recommendations across skill domains
+
+Evaluating recommendation quality using Recall@10
+
+#Solution Architecture
+
+The system follows a structured retrieval-based pipeline.
+
+1. Data Ingestion
+
+SHL product catalog pages are processed
+
+Only Individual Test Solutions are retained
+
+Pre-packaged job solutions are excluded
+
+Metadata extracted:
+
+Assessment Name
+
+URL
+
+Description
+
+Test Type
+
+Duration
+
+Adaptive Support
+
+Remote Support
+
+2. Embedding Generation
+
+Assessment descriptions and user queries are converted into dense vector embeddings using a sentence-transformer model.
+
+This enables contextual similarity comparison instead of keyword matching.
+
+3. Vector Similarity Search
+
+Cosine similarity is used to retrieve the most relevant assessments
+
+A Nearest Neighbors index enables efficient top-K retrieval
+
+Top candidates are ranked based on similarity score
+
+4. Balanced Recommendation Logic
+
+When a query spans multiple domains (e.g., technical and behavioral skills), the system ensures a balanced mix of assessment types such as:
+
+Knowledge & Skills
+
+Personality & Behavior
+
+Competencies
+
+This improves recommendation relevance and fairness.
+
+5. Evaluation
+
+The system is evaluated using labeled training queries.
+
+Metric Used: Recall@10
+
+Recall@10 measures whether relevant assessments appear within the top-10 recommendations for a given query.
+
+This ensures measurable and objective validation of system performance.
+
+API Endpoints
+Health Check
+
+GET /health
+
+Response:
+
+{
+  "status": "healthy"
+}
+Recommendation Endpoint
+
+POST /recommend
+
+Request:
+
+{
+  "query": "Hiring a Java developer with strong collaboration skills"
+}
+
+Response includes:
+
+name
+
+url
+
+description
+
+duration
+
+adaptive_support
+
+remote_support
+
+test_type
+
+Tech Stack
+
+Python
+
+Flask
+
+Sentence-Transformers
+
+scikit-learn
+
+Pandas
+
+NumPy
+
+HTML / CSS / JavaScript
+
+#Project Structure
+shl-genai-recommender/
+
+├── app.py
+├── crawler.py
+├── clean_catalog.py
+├── build_index.py
+├── retrieve_test.py
+├── evaluate_recall.py
+
+├── data/
+│   ├── metadata.csv
+│   ├── embeddings.npy
+│   ├── nn_model.joblib
+
+├── templates/
+├── static/
+
+└── README.md
+Key Highlights
+
+Context-aware semantic recommendations
+
+Retrieval-based architecture
+
+Balanced multi-domain recommendations
+
+Measurable evaluation using Recall@10
+
+Modular and extensible design
+
+#Use Case---
+
+This system can support:
+
+Recruiters
+
+Talent acquisition teams
+
+HR platforms
+
+Assessment providers
+
+in identifying the most appropriate SHL assessments for a given hiring requirement.
